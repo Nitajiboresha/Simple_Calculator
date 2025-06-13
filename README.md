@@ -1,2 +1,5 @@
-# Simple_Calculator
-A simple calculator that finds the sum to two numbers.
+#   A simple Calculator.
+
+-   Allows for user input.
+
+-   Calculates 2 numbers.
