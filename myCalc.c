@@ -1,58 +1,105 @@
 #include <stdio.h>
 
-//  Function to print the available calculation options:
-void availableCalculations() {
-    //  
-    char* mathOperations[] = {"DIVISION", "MULTIPLICATION", "ADDITION", "SUBTRACTION"};
+float calculateAddition(float Num1, float Num2) {
+    return Num1 + Num2;
+}
 
-    int numOperations = sizeof(mathOperations) / sizeof(mathOperations[0]);
+float calculateSubtraction(float Num1, float Num2) {
+    return Num1 - Num2;
+}
 
-    printf("Available calculations:\n");
-    for(int i = 0; i < numOperations; i++) {
-        printf("%d. %s\n", i + 1, mathOperations[i]);
+float calculateMultiplication(float Num1, float Num2) {
+    return Num1 * Num2;
+}
+
+float calculateDivision(float Num1, float Num2) {
+    if (Num2 == 0) {
+        printf("Error: Division by zero is not allowed.\n");
+        return 0;
+    }
+    return Num1 / Num2;
+}
+
+void calculationTypes() {
+    char calculationChoices[4][100] = {
+        "Division",
+        "Multiplication",
+        "Addition",
+        "Subtraction"
+    };
+    for (int i = 0; i < 4; i++) {
+        printf("\n%d. %s\n\n", i + 1, calculationChoices[i]);
     }
 }
 
 int main() {
-    availableCalculations();
+    while (1) {
+        int userCalculationTypeChoice;
+        float num1, num2;
+        float result;
+        char userChoiceToContinueCalculating;
 
-    //  Allow a user to input what they want to calculate:
-    int chooseOperation;
-    printf("Choose what to calculate (1~4): ");
-    scanf("%d", &chooseOperation);
+        printf("\nWhat would you like to calculate: \n");
+        calculationTypes();
+        printf("Choose (1 ~ 4): ");
+        scanf("%d", &userCalculationTypeChoice);
 
-    //  Checks if the user input 1 ~ 4:
-    chooseOperation >= 1 && chooseOperation <= 4 ? printf("You chose: %d\n", chooseOperation) : printf("Invalid choice. Please input a number from 1 to 4.\n");
+        switch (userCalculationTypeChoice) {
+            case 1:
+                printf("Division of: \n");
+                printf("NUM 1: ");
+                scanf("%f", &num1);
+                printf("NUM 2: ");
+                scanf("%f", &num2);
+                printf("Dividing...\n");
+                result = calculateDivision(num1, num2);
+                if (result != 0) {
+                    printf("Answer = %.4f\n", result);
+                }
+                break;
+            case 2:
+                printf("Multiplication of: \n");
+                printf("NUM 1: ");
+                scanf("%f", &num1);
+                printf("NUM 2: ");
+                scanf("%f", &num2);
+                printf("Multiplying...\n");
+                result = calculateMultiplication(num1, num2);
+                printf("Answer = %.4f\n", result);
+                break;
+            case 3:
+                printf("Addition of: \n");
+                printf("NUM 1: ");
+                scanf("%f", &num1);
+                printf("NUM 2: ");
+                scanf("%f", &num2);
+                printf("Adding...\n");
+                result = calculateAddition(num1, num2);
+                printf("Answer = %.4f\n", result);
+                break;
+            case 4:
+                printf("Subtraction of: \n");
+                printf("NUM 1: ");
+                scanf("%f", &num1);
+                printf("NUM 2: ");
+                scanf("%f", &num2);
+                printf("Subtracting...\n");
+                result = calculateSubtraction(num1, num2);
+                printf("Answer = %.4f\n", result);
+                break;
+            default:
+                printf("\nPlease input a valid number (1 ~ 4)\n");
+                break;
+        }
 
-    //  Declare the variables for calculations:
-    float Num1, Num2, sum;
-
-    printf("Num1: ");
-    scanf("%f", &Num1);
-
-    printf("Num2: ");
-    scanf("%f", &Num2);
-
-    switch(chooseOperation) {
-        case 1:
-            sum = Num1 / Num2;
-            Num2 == 0 ? printf("Division by ZERO is not allowed.") : printf("Division: %.4f", sum);
+        printf("\nDo you want to continue calculating? (y / n): ");
+        scanf(" %c", &userChoiceToContinueCalculating);
+        if (userChoiceToContinueCalculating == 'y' || userChoiceToContinueCalculating == 'Y') {
+            continue;
+        } else {
             break;
-        case 2:
-            sum = Num1 * Num2;
-            printf("Multiplication: %.4f\n", sum);
-            break;
-        case 3:
-            sum = Num1 + Num2;
-            printf("Addition: %.4f\n", sum);
-            break;
-        case 4:
-            sum = Num1 - Num2;
-            printf("Subtraction: %.4f\n", sum);
-            break;
-        default:
-            printf("Invalid choice.\n");
-            break;
+        }
     }
+
     return 0;
 }
